@@ -23,17 +23,19 @@ const PlayerCar = ({ ref }: { ref: React.RefObject<MyObject3D> }) => {
 
   useEffect(() => {
     // ----- Assign visual ref -----
-    ref.current.speed = 0;
-    ref.current.wheels = [];
+    const car = ref.current;
 
-    ref.current.traverse((child) => {
-      if (!ref.current) return;
+    car.speed = 0;
+    car.wheels = [];
+    car.carBody = null;
 
-      if (child.name.toLowerCase().includes("wheel"))
-        ref.current.wheels.push(child);
+    car.traverse((child) => {
+      if (!car) return;
+
+      if (child.name.toLowerCase().includes("wheel")) car.wheels.push(child);
 
       if (child.name.toLowerCase().includes("body")) {
-        ref.current.carBody = child;
+        car.carBody = child;
       }
     });
   }, [ref]);

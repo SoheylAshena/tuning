@@ -8,6 +8,7 @@ import Helicopter from "./helicopter";
 import FloorPlane from "./floor-plane";
 import FollowCamera from "./follow-camera";
 import About from "./about";
+import MaterialUpdate from "./material-update";
 
 const App = () => {
   const carRef = useRef<MyObject3D>(null!);
@@ -16,11 +17,7 @@ const App = () => {
     <div className="w-full h-screen">
       <WebGLCanvas>
         <OrbitControls />
-        {/* <Environment
-          files={"/hdri/studio-low.exr"}
-          environmentIntensity={1.5}
-        /> */}
-        <ambientLight intensity={3} />
+
         <PlayerCar ref={carRef} />
         <Hello />
         <About />
@@ -28,6 +25,7 @@ const App = () => {
         <FloorPlane />
 
         <FollowCamera target={carRef} />
+        <MaterialUpdate />
       </WebGLCanvas>
     </div>
   );
