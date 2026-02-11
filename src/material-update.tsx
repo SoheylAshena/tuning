@@ -30,6 +30,15 @@ const MaterialUpdate = () => {
           });
         }
 
+        if (mat.name.toLowerCase().includes("glass")) {
+          return new MeshMatcapMaterial({
+            side: 2,
+            matcap: blackTexture,
+            opacity: 0.925,
+            transparent: true,
+          });
+        }
+
         if (mat.name.toLowerCase().includes("gold")) {
           return new MeshMatcapMaterial({
             side: 2,
