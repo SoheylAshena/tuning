@@ -14,21 +14,34 @@ const MaterialUpdate = () => {
 
   useEffect(() => {
     scene.traverse((child) => {
-      if (child instanceof Mesh) {
-        if (child.material.name.includes("white")) {
-          child.material = new MeshMatcapMaterial({
+      if (!(child instanceof Mesh)) return;
+
+      const mats = Array.isArray(child.material)
+        ? child.material
+        : [child.material];
+
+      const newMats = mats.map((mat) => {
+        if (!mat?.name) return mat;
+
+        if (mat.name.toLowerCase().includes("black")) {
+          return new MeshMatcapMaterial({
             side: 2,
             matcap: blackTexture,
           });
         }
 
-        if (child.material.name.includes("Gold")) {
-          child.material = new MeshMatcapMaterial({
+        if (mat.name.toLowerCase().includes("gold")) {
+          return new MeshMatcapMaterial({
             side: 2,
             matcap: goldTexture,
           });
         }
-      }
+
+        return mat;
+      });
+
+      child.material = newMats.length === 1 ? newMats[0] : newMats;
+      child.material.needsUpdate = true;
     });
   }, [scene, goldTexture, blackTexture]);
 

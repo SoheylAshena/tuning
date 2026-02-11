@@ -1,7 +1,7 @@
 import { useFrame } from "@react-three/fiber";
 import { clamp, lerp } from "three/src/math/MathUtils.js";
 import { useKeyboard } from "./use-keyboard";
-import { useGLTF } from "@react-three/drei";
+import { useFBX } from "@react-three/drei";
 import { useEngineSound } from "./use-engine-sound";
 import type { MyObject3D } from "./types";
 import { Quaternion, Vector3 } from "three";
@@ -9,7 +9,7 @@ import { useEffect } from "react";
 
 const PlayerCar = ({ ref }: { ref: React.RefObject<MyObject3D> }) => {
   // ----- Loading the car model -----
-  const { scene } = useGLTF("/car/car.glb");
+  const model = useFBX("/models/car.fbx");
 
   // ----- Get keyboard input status
   const keys = useKeyboard();
@@ -106,7 +106,7 @@ const PlayerCar = ({ ref }: { ref: React.RefObject<MyObject3D> }) => {
     }
   });
 
-  return <primitive ref={ref} object={scene} />;
+  return <primitive ref={ref} object={model} />;
 };
 
 export default PlayerCar;

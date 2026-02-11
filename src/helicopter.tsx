@@ -1,4 +1,4 @@
-import { useGLTF } from "@react-three/drei";
+import { useFBX } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import gsap from "gsap";
 import { Mesh, Object3D } from "three";
@@ -10,7 +10,7 @@ const Helicopter = ({
 }: {
   target: React.RefObject<MyObject3D | null>;
 }) => {
-  const loadedModel = useGLTF("/car/helicopter.glb").scene;
+  const loadedModel = useFBX("/models/helicopter.fbx");
   const modelRef = useRef<Object3D | null>(null);
 
   useEffect(() => {
@@ -53,7 +53,7 @@ const Helicopter = ({
 
   useFrame(() => {
     if (modelRef.current && target?.current) {
-      modelRef.current.children[0].lookAt(target.current.position);
+      modelRef.current.lookAt(target.current.position);
     }
   });
 

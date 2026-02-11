@@ -1,7 +1,8 @@
-import { useGLTF } from "@react-three/drei";
+import { useFBX } from "@react-three/drei";
 
 const About = () => {
-  const model = useGLTF("/car/about.glb").scene;
+  const model = useFBX("/models/about.fbx");
+
   return <primitive object={model} />;
 };
 
