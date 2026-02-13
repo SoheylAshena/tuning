@@ -2,12 +2,15 @@ import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 
 import "./gauge.css";
+import { useProgress } from "@react-three/drei";
 
 function rempo(value: number) {
   return (value / 100) * 240;
 }
 
-export default function GaugeLoader({ progress }: { progress: number }) {
+export default function GaugeLoader() {
+  const { progress } = useProgress();
+
   const divRef = useRef<HTMLDivElement>(null);
   const handRef = useRef<SVGGElement>(null);
 
@@ -18,18 +21,23 @@ export default function GaugeLoader({ progress }: { progress: number }) {
 
   useEffect(() => {
     if (!handRef.current) return;
+    gsap.killTweensOf(handRef.current);
+
     gsap.to(handRef.current, {
       rotation: rempo(progress),
-      duration: 1,
+      duration: 0.5,
       ease: "power2.inOut",
+      overwrite: true,
       onComplete: () => {
-        if (progress == 100)
+        if (progress === 100 && divRef.current) {
           gsap.to(divRef.current, {
+            delay: 1,
             opacity: 0,
             onComplete: () => {
               divRef.current!.style.display = "none";
             },
           });
+        }
       },
     });
   }, [progress]);
@@ -37,7 +45,7 @@ export default function GaugeLoader({ progress }: { progress: number }) {
   return (
     <div
       ref={divRef}
-      className="w-full bg-[#aaaaaa] h-full flex items-center justify-center absolute top-0 left-0 z-50 "
+      className="w-full bg-[#aaaaaa] h-full flex items-center flex-col justify-center absolute top-0 left-0 z-50 "
     >
       <svg viewBox="0 0 413.63 313.54" width="420">
         <defs>
@@ -113,6 +121,7 @@ export default function GaugeLoader({ progress }: { progress: number }) {
           <circle className="cls-1" cx="206.93" cy="206.7" r="13.59" />
         </g>
       </svg>
+      <p>{progress.toFixed()}%</p>
     </div>
   );
 }
