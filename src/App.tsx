@@ -7,19 +7,32 @@ import Helicopter from "./helicopter";
 import FollowCamera from "./follow-camera";
 import About from "./about";
 import MaterialUpdate from "./material-update";
+import { OrbitControls, useProgress } from "@react-three/drei";
+import Projects from "./projects";
+import GaugeLoader from "./gauge-loader";
+
+function OverlayLoader() {
+  const { progress } = useProgress();
+
+  return <GaugeLoader progress={progress} />;
+}
 
 const App = () => {
   const carRef = useRef<MyObject3D>(null!);
 
   return (
     <div className="w-full h-screen">
+      <OverlayLoader />
       <WebGLCanvas>
         <PlayerCar ref={carRef} />
         <Hello />
         <About />
         <Helicopter target={carRef} />
+        <Projects />
 
         <FollowCamera target={carRef} />
+        <OrbitControls />
+
         <MaterialUpdate />
       </WebGLCanvas>
     </div>
