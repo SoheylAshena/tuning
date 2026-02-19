@@ -45,6 +45,16 @@ const PlayerCar = ({ ref }: { ref: React.RefObject<MyObject3D> }) => {
   useFrame((_, delta) => {
     if (!ref.current) return;
 
+    // ---------------- Limit car movement -----------------
+    if (ref.current.position.z <= -2) {
+      ref.current.position.z = -2;
+      ref.current.speed = lerp(ref.current.speed, 0, delta * 10);
+    }
+    if (ref.current.position.z >= 50) {
+      ref.current.position.z = 50;
+      ref.current.speed = lerp(ref.current.speed, 0, delta * 10);
+    }
+
     /* ---------------- ACCELERATION ---------------- */
     if (keys.current.forward)
       ref.current.speed = Math.min(

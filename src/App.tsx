@@ -9,6 +9,7 @@ import About from "./about";
 import MaterialUpdate from "./material-update";
 import { OrbitControls } from "@react-three/drei";
 import Projects from "./projects";
+// import { Perf } from "r3f-perf";
 import GaugeLoader from "./gauge-loader";
 
 const App = () => {
@@ -17,6 +18,7 @@ const App = () => {
   return (
     <div className="w-full h-screen">
       <WebGLCanvas>
+        {/* <Perf position="top-left" /> */}
         <PlayerCar ref={carRef} />
         <Hello />
         <About />

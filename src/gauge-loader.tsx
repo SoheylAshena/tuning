@@ -4,42 +4,55 @@ import { gsap } from "gsap";
 import "./gauge.css";
 import { useProgress } from "@react-three/drei";
 
-function rempo(value: number) {
-  return (value / 100) * 240;
-}
+// function rempo(value: number) {
+//   return (value / 100) * 240;
+// }
 
 export default function GaugeLoader() {
   const { progress } = useProgress();
 
   const divRef = useRef<HTMLDivElement>(null);
-  const handRef = useRef<SVGGElement>(null);
+  // const handRef = useRef<SVGGElement>(null);
+
+  // useEffect(() => {
+  //   if (!handRef.current) return;
+  //   handRef.current.style.transformOrigin = "182px 18px";
+  // }, []);
+
+  // useEffect(() => {
+  //   if (!handRef.current) return;
+  //   gsap.killTweensOf(handRef.current);
+
+  //   gsap.to(handRef.current, {
+  //     rotation: rempo(progress),
+  //     duration: 0.5,
+  //     ease: "power2.inOut",
+  //     overwrite: true,
+  //     onComplete: () => {
+  //       if (progress === 100 && divRef.current) {
+  //         gsap.to(divRef.current, {
+  //           delay: 1,
+  //           opacity: 0,
+  //           onComplete: () => {
+  //             divRef.current!.style.display = "none";
+  //           },
+  //         });
+  //       }
+  //     },
+  //   });
+  // }, [progress]);
 
   useEffect(() => {
-    if (!handRef.current) return;
-    handRef.current.style.transformOrigin = "182px 18px";
-  }, []);
-
-  useEffect(() => {
-    if (!handRef.current) return;
-    gsap.killTweensOf(handRef.current);
-
-    gsap.to(handRef.current, {
-      rotation: rempo(progress),
-      duration: 0.5,
-      ease: "power2.inOut",
-      overwrite: true,
-      onComplete: () => {
-        if (progress === 100 && divRef.current) {
-          gsap.to(divRef.current, {
-            delay: 1,
-            opacity: 0,
-            onComplete: () => {
-              divRef.current!.style.display = "none";
-            },
-          });
-        }
-      },
-    });
+    if (!divRef.current) return;
+    if (progress === 100 && divRef.current) {
+      gsap.to(divRef.current, {
+        delay: 1,
+        opacity: 0,
+        onComplete: () => {
+          divRef.current!.style.display = "none";
+        },
+      });
+    }
   }, [progress]);
 
   return (
@@ -47,7 +60,12 @@ export default function GaugeLoader() {
       ref={divRef}
       className="w-full bg-[#aaaaaa] h-full flex items-center flex-col justify-center absolute top-0 left-0 z-50 "
     >
-      <svg viewBox="0 0 413.63 313.54" width="420">
+      <p>{progress.toFixed()}%</p>
+    </div>
+  );
+}
+
+/*  <svg viewBox="0 0 413.63 313.54" width="420">
         <defs>
           <linearGradient
             id="linear-gradient"
@@ -112,7 +130,7 @@ export default function GaugeLoader() {
           </g>
         </g>
 
-        {/* only change: wrap the hand group */}
+         only change: wrap the hand group 
         <g ref={handRef} filter="url(#handGlow)">
           <path
             className="cls-2"
@@ -120,8 +138,4 @@ export default function GaugeLoader() {
           />
           <circle className="cls-1" cx="206.93" cy="206.7" r="13.59" />
         </g>
-      </svg>
-      <p>{progress.toFixed()}%</p>
-    </div>
-  );
-}
+      </svg> */
