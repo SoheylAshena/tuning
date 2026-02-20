@@ -16,7 +16,7 @@ const Helicopter = ({
   useEffect(() => {
     if (!modelRef.current) return;
 
-    modelRef.current.position.y = 1.5;
+    modelRef.current.position.y = 4.5;
 
     modelRef.current.traverse((child) => {
       if (child instanceof Mesh) {

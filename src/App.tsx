@@ -11,6 +11,7 @@ import { OrbitControls } from "@react-three/drei";
 import Projects from "./projects";
 // import { Perf } from "r3f-perf";
 import GaugeLoader from "./gauge-loader";
+import Skills from "./skills";
 
 const App = () => {
   const carRef = useRef<MyObject3D>(null!);
@@ -23,6 +24,7 @@ const App = () => {
         <Hello />
         <About />
         <Helicopter target={carRef} />
+        <Skills />
         <Projects />
 
         <FollowCamera target={carRef} />

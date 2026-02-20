@@ -50,8 +50,8 @@ const PlayerCar = ({ ref }: { ref: React.RefObject<MyObject3D> }) => {
       ref.current.position.z = -2;
       ref.current.speed = lerp(ref.current.speed, 0, delta * 10);
     }
-    if (ref.current.position.z >= 50) {
-      ref.current.position.z = 50;
+    if (ref.current.position.z >= 100) {
+      ref.current.position.z = 100;
       ref.current.speed = lerp(ref.current.speed, 0, delta * 10);
     }
 

@@ -36,8 +36,8 @@ const FollowCamera = ({ target }: { target: React.RefObject<MyObject3D> }) => {
     // --- 4. Camera position
     camera.position.set(
       carPosition.x - 12,
-      carPosition.y + 5,
-      carPosition.z + 8,
+      carPosition.y + 4,
+      carPosition.z + 7,
     );
 
     // --- 5. Smooth follow
