@@ -31,7 +31,7 @@ export const useEngineSound = (target: React.RefObject<MyObject3D>) => {
 
     const speed = Math.abs(target.current.speed);
 
-    const volume = speed * 50;
+    const volume = speed * 100;
     const pitch = speed * 2 + 0.5;
 
     audio.setVolume(volume);

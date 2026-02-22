@@ -7,7 +7,13 @@ import type { MyObject3D } from "./types";
 import { Quaternion, Vector3 } from "three";
 import { useEffect } from "react";
 
-const PlayerCar = ({ ref }: { ref: React.RefObject<MyObject3D> }) => {
+const PlayerCar = ({
+  ref,
+  paused,
+}: {
+  ref: React.RefObject<MyObject3D>;
+  paused: boolean;
+}) => {
   // ----- Loading the car model -----
   const model = useFBX("/models/car.fbx");
 
@@ -43,7 +49,7 @@ const PlayerCar = ({ ref }: { ref: React.RefObject<MyObject3D> }) => {
   useEngineSound(ref);
 
   useFrame((_, delta) => {
-    if (!ref.current) return;
+    if (!ref.current || paused) return;
 
     // ---------------- Limit car movement -----------------
     if (ref.current.position.z <= -2) {

@@ -58,7 +58,7 @@ export default function GaugeLoader() {
   return (
     <div
       ref={divRef}
-      className="w-full bg-[#aaaaaa] h-full flex items-center flex-col justify-center absolute top-0 left-0 z-50 "
+      className="w-full bg-black text-white h-full flex items-center flex-col justify-center absolute top-0 left-0 z-50 "
     >
       <p>{progress.toFixed()}%</p>
     </div>
