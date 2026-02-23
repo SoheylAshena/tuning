@@ -22,11 +22,11 @@ export const useKeyboard = () => {
           break;
         case "KeyA":
         case "ArrowLeft":
-          keys.current.left = true;
+          keys.current.backward = true;
           break;
         case "KeyD":
         case "ArrowRight":
-          keys.current.right = true;
+          keys.current.forward = true;
           break;
         case "Space":
           keys.current.handbrake = true;
@@ -46,11 +46,11 @@ export const useKeyboard = () => {
           break;
         case "KeyA":
         case "ArrowLeft":
-          keys.current.left = false;
+          keys.current.backward = false;
           break;
         case "KeyD":
         case "ArrowRight":
-          keys.current.right = false;
+          keys.current.forward = false;
           break;
         case "Space":
           keys.current.handbrake = false;
