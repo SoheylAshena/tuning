@@ -1,6 +1,6 @@
 import { useFrame } from "@react-three/fiber";
 import { PositionalAudio } from "three";
-import type { MyObject3D } from "./types";
+import type { MyObject3D } from "../types";
 import { useEffect, useMemo } from "react";
 import { useGlobalAudioListener } from "./use-global-audio-listener";
 import useAudio from "./use-audio";

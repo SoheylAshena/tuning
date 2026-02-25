@@ -1,19 +1,19 @@
-import { useRef, useState, useEffect } from "react";
-import WebGLCanvas from "./web-gl-canvas";
-import PlayerCar from "./player-car";
+import { useEffect, useRef, useState } from "react";
 import type { MyObject3D } from "./types";
-import Hello from "./hello";
-import Helicopter from "./helicopter";
-import FollowCamera from "./follow-camera";
-import About from "./about";
-import MaterialUpdate from "./material-update";
-import { OrbitControls } from "@react-three/drei";
-import Projects from "./projects";
-import GaugeLoader from "./gauge-loader";
-import Skills from "./skills";
 import { AudioContext } from "three";
-import { HornButton } from "./car-horn";
-import { KeyboardProvider } from "./keyboard-context";
+import { KeyboardProvider } from "./context/keyboard-context";
+import WebGLCanvas from "./three-components/web-gl-canvas";
+import PlayerCar from "./three-components/player-car";
+import Hello from "./three-components/hello";
+import About from "./three-components/about";
+import Helicopter from "./three-components/helicopter";
+import Skills from "./three-components/skills";
+import Projects from "./three-components/projects";
+import FollowCamera from "./three-components/follow-camera";
+import { OrbitControls } from "@react-three/drei";
+import MaterialUpdate from "./three-components/material-update";
+import { HornButton } from "./components/car-horn";
+import GaugeLoader from "./components/gauge-loader";
 
 const App = () => {
   const carRef = useRef<MyObject3D>(null!);

@@ -1,5 +1,5 @@
 import { useFrame, useThree } from "@react-three/fiber";
-import type { MyObject3D } from "./types";
+import type { MyObject3D } from "../types";
 
 const FollowCamera = ({ target }: { target: React.RefObject<MyObject3D> }) => {
   const { camera } = useThree();

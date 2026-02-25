@@ -1,12 +1,12 @@
 import { useFrame } from "@react-three/fiber";
 import { clamp, lerp } from "three/src/math/MathUtils.js";
-import { useKeyboardContext } from "./use-keyboard-context";
 import { useFBX } from "@react-three/drei";
-import type { MyObject3D } from "./types";
+import type { MyObject3D } from "../types";
 import { Quaternion, Vector3 } from "three";
 import { useEffect } from "react";
-import { useEngineSound } from "./use-engine-sound";
-import useCarHorn from "./use-car-horn-sound";
+import { useKeyboardContext } from "../hooks/use-keyboard-context";
+import { useEngineSound } from "../hooks/use-engine-sound";
+import useCarHorn from "../hooks/use-car-horn-sound";
 
 const PlayerCar = ({
   ref,

@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/immutability */
-import { useKeyboardContext } from "./use-keyboard-context";
+import { useKeyboardContext } from "../hooks/use-keyboard-context";
 
 export const HornButton = () => {
   const keys = useKeyboardContext();
@@ -17,7 +17,7 @@ export const HornButton = () => {
         e.stopPropagation();
         keys.current.horn = false;
       }}
-      onMouseDown={() => (keys.current.horn = true)} // optional (desktop testing)
+      onMouseDown={() => (keys.current.horn = true)}
       onMouseUp={() => (keys.current.horn = false)}
       className="
         fixed

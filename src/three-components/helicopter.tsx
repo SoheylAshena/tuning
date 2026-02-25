@@ -2,7 +2,7 @@ import { useFBX } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import gsap from "gsap";
 import { Mesh, Object3D } from "three";
-import type { MyObject3D } from "./types";
+import type { MyObject3D } from "../types";
 import { useEffect, useRef } from "react";
 
 const Helicopter = ({

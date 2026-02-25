@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from "react";
-import type { MyObject3D } from "./types";
+import type { MyObject3D } from "../types";
 import useAudio from "./use-audio";
 import { useGlobalAudioListener } from "./use-global-audio-listener";
 import { PositionalAudio } from "three";
