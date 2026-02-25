@@ -28,9 +28,9 @@ const PlayerCar = ({
   useCarHorn(ref);
 
   // ----- Constants for car movement -----
-  const ACCELERATION = 0.05;
+  const ACCELERATION = 0.002;
   const FRICTION = 0.97;
-  const MAX_SPEED = 0.5;
+  const MAX_SPEED = 1;
   const forward = new Vector3();
   const tempQuat = new Quaternion();
 
@@ -56,31 +56,35 @@ const PlayerCar = ({
   useFrame((_, delta) => {
     if (!ref.current || paused) return;
 
+    // Apply delta time multiplier for frame-rate independent movement
+    const EXPECTED_FRAME_TIME = 1.0 / 60.0; // 60fps baseline
+    const deltaMult = delta / EXPECTED_FRAME_TIME;
+
     // ---------------- Limit car movement -----------------
     if (ref.current.position.z <= -2) {
       ref.current.position.z = -2;
-      ref.current.speed = lerp(ref.current.speed, 0, delta * 10);
+      ref.current.speed = lerp(ref.current.speed, 0, 0.1 * deltaMult);
     }
     if (ref.current.position.z >= 100) {
       ref.current.position.z = 100;
-      ref.current.speed = lerp(ref.current.speed, 0, delta * 10);
+      ref.current.speed = lerp(ref.current.speed, 0, 0.1 * deltaMult);
     }
 
     /* ---------------- ACCELERATION ---------------- */
     if (keys.current.forward)
       ref.current.speed = Math.min(
         +MAX_SPEED,
-        ref.current.speed + ACCELERATION * delta,
+        ref.current.speed + ACCELERATION * deltaMult,
       );
 
     if (keys.current.backward)
       ref.current.speed = Math.max(
         -MAX_SPEED,
-        ref.current.speed - ACCELERATION * delta,
+        ref.current.speed - ACCELERATION * deltaMult,
       );
 
     if (!(keys.current.forward || keys.current.backward))
-      ref.current.speed *= FRICTION;
+      ref.current.speed *= Math.pow(FRICTION, deltaMult);
 
     /* ---------- FORWARD MOVEMENT ---------- */
     forward.set(0, 0, 1);
@@ -88,14 +92,14 @@ const PlayerCar = ({
     forward.multiplyScalar(ref.current.speed);
 
     ref.current.position.set(
-      ref.current.position.x + forward.x,
+      ref.current.position.x + forward.x * deltaMult,
       ref.current.position.y,
-      ref.current.position.z + forward.z,
+      ref.current.position.z + forward.z * deltaMult,
     );
 
     /* ---------------- WHEEL SPIN ---------------- */
     ref.current.wheels.forEach((wheel) => {
-      wheel.rotation.x += ref.current!.speed;
+      wheel.rotation.x += ref.current!.speed * deltaMult;
     });
 
     /* ---------------- BODY TILT ---------------- */
@@ -122,7 +126,7 @@ const PlayerCar = ({
       ref.current.carBody.rotation.x = lerp(
         ref.current.carBody.rotation.x,
         targetTilt,
-        0.1,
+        0.1 * deltaMult,
       );
     }
   });
