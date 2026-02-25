@@ -10,12 +10,12 @@ const FollowCamera = ({ target }: { target: React.RefObject<MyObject3D> }) => {
     const carPosition = target.current.position;
 
     camera.position.set(
-      carPosition.x - 12,
-      carPosition.y + 4,
-      carPosition.z + 7,
+      carPosition.x - 8,
+      carPosition.y + 2.5,
+      carPosition.z + 5,
     );
 
-    camera.lookAt(carPosition.x, carPosition.y + 2.5, carPosition.z + 2);
+    camera.lookAt(carPosition.x, carPosition.y + 2, carPosition.z + 2);
   });
 
   return null;

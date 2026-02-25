@@ -32,7 +32,6 @@ const useCarHorn = (target: React.RefObject<MyObject3D>) => {
     return () => {
       audio.stop();
       object.remove(audio);
-      audio.disconnect();
     };
   }, [audio, target]);
 

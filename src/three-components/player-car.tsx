@@ -16,7 +16,7 @@ const PlayerCar = ({
   paused: boolean;
 }) => {
   // ----- Loading the car model -----
-  const model = useFBX("/models/car.fbx");
+  const model = useFBX("/models/lambo.fbx");
 
   // ----- Get keyboard input status
   const keys = useKeyboardContext();

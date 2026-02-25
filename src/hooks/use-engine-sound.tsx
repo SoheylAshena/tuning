@@ -19,7 +19,13 @@ export const useEngineSound = (target: React.RefObject<MyObject3D>) => {
   }, [listener, engineSound]);
 
   useEffect(() => {
-    target.current.add(audio);
+    const object = target.current;
+    object.add(audio);
+
+    return () => {
+      audio.stop();
+      object.remove(audio);
+    };
   }, [audio, target]);
 
   useFrame(() => {
@@ -27,8 +33,8 @@ export const useEngineSound = (target: React.RefObject<MyObject3D>) => {
 
     const speed = Math.abs(target.current.speed);
 
-    const volume = speed * 100;
-    const pitch = speed * 2 + 0.5;
+    const volume = speed * 50;
+    const pitch = speed * 7 + 1;
 
     audio.setVolume(volume);
     audio.setPlaybackRate(pitch);
