@@ -12,16 +12,18 @@ import Projects from "./projects";
 import GaugeLoader from "./gauge-loader";
 import Skills from "./skills";
 import { AudioContext } from "three";
+import { HornButton } from "./car-horn";
+import { KeyboardProvider } from "./keyboard-context";
 
 const App = () => {
   const carRef = useRef<MyObject3D>(null!);
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const mainDivRef = useRef<HTMLDivElement | null>(null);
 
   const [paused, setPaused] = useState(true);
 
   useEffect(() => {
     const handleFullscreenChange = () => {
-      if (document.fullscreenElement !== canvasRef.current) {
+      if (document.fullscreenElement !== mainDivRef.current) {
         setPaused(true);
       }
     };
@@ -32,43 +34,46 @@ const App = () => {
   }, []);
 
   const handlePlay = () => {
-    if (!canvasRef.current) return;
+    if (!mainDivRef.current) return;
 
     AudioContext.getContext().resume();
-    canvasRef.current.requestFullscreen();
+    mainDivRef.current.requestFullscreen();
 
     setPaused(false);
   };
 
   return (
-    <div className="w-full h-screen relative">
-      {/* Pause Overlay */}
-      {paused && (
-        <div className="absolute inset-0 bg-black/80 flex items-center justify-center z-50">
-          <button
-            onClick={handlePlay}
-            className="text-3xl px-8 py-4  text-white rounded-lg"
-          >
-            Play
-          </button>
-        </div>
-      )}
+    <KeyboardProvider>
+      <div className="w-full h-screen relative" ref={mainDivRef}>
+        {/* Pause Overlay */}
+        {paused && (
+          <div className="absolute inset-0 bg-black/80 flex items-center justify-center z-50">
+            <button
+              onClick={handlePlay}
+              className="text-3xl px-8 py-4  text-white rounded-lg"
+            >
+              Play
+            </button>
+          </div>
+        )}
 
-      <WebGLCanvas ref={canvasRef}>
-        <PlayerCar paused={paused} ref={carRef} />
-        <Hello />
-        <About />
-        <Helicopter target={carRef} />
-        <Skills />
-        <Projects />
+        <WebGLCanvas>
+          <PlayerCar paused={paused} ref={carRef} />
+          <Hello />
+          <About />
+          <Helicopter target={carRef} />
+          <Skills />
+          <Projects />
 
-        <FollowCamera target={carRef} />
-        <OrbitControls />
-        <MaterialUpdate />
-      </WebGLCanvas>
+          <FollowCamera target={carRef} />
+          <OrbitControls />
+          <MaterialUpdate />
+        </WebGLCanvas>
+        <HornButton />
 
-      <GaugeLoader />
-    </div>
+        <GaugeLoader />
+      </div>
+    </KeyboardProvider>
   );
 };
 

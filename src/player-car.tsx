@@ -1,11 +1,12 @@
 import { useFrame } from "@react-three/fiber";
 import { clamp, lerp } from "three/src/math/MathUtils.js";
-import { useKeyboard } from "./use-keyboard";
+import { useKeyboardContext } from "./use-keyboard-context";
 import { useFBX } from "@react-three/drei";
-import { useEngineSound } from "./use-engine-sound";
 import type { MyObject3D } from "./types";
 import { Quaternion, Vector3 } from "three";
 import { useEffect } from "react";
+import { useEngineSound } from "./use-engine-sound";
+import useCarHorn from "./use-car-horn-sound";
 
 const PlayerCar = ({
   ref,
@@ -18,7 +19,13 @@ const PlayerCar = ({
   const model = useFBX("/models/car.fbx");
 
   // ----- Get keyboard input status
-  const keys = useKeyboard();
+  const keys = useKeyboardContext();
+
+  // ----- Engine sound -----
+  useEngineSound(ref);
+
+  // ----- Horn sound -----
+  useCarHorn(ref);
 
   // ----- Constants for car movement -----
   const ACCELERATION = 0.05;
@@ -45,8 +52,6 @@ const PlayerCar = ({
       }
     });
   }, [ref]);
-
-  useEngineSound(ref);
 
   useFrame((_, delta) => {
     if (!ref.current || paused) return;

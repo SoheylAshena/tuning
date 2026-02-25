@@ -1,7 +1,9 @@
-import { useEffect, useRef } from "react";
+import React, { useRef } from "react";
+import type { ReactNode } from "react";
+import { KeyboardContext } from "./keyboard-context-create";
 
-export const useKeyboard = () => {
-  const keys = useRef({
+export function KeyboardProvider({ children }: { children: ReactNode }) {
+  const keysRef = useRef({
     forward: false,
     backward: false,
     left: false,
@@ -10,30 +12,30 @@ export const useKeyboard = () => {
     horn: false,
   });
 
-  useEffect(() => {
+  React.useEffect(() => {
     const onDown = (e: KeyboardEvent) => {
       switch (e.code) {
         case "KeyW":
         case "ArrowUp":
-          keys.current.forward = true;
+          keysRef.current.forward = true;
           break;
         case "KeyS":
         case "ArrowDown":
-          keys.current.backward = true;
+          keysRef.current.backward = true;
           break;
         case "KeyA":
         case "ArrowLeft":
-          keys.current.backward = true;
+          keysRef.current.left = true;
           break;
         case "KeyD":
         case "ArrowRight":
-          keys.current.forward = true;
+          keysRef.current.right = true;
           break;
         case "Space":
-          keys.current.handbrake = true;
+          keysRef.current.handbrake = true;
           break;
         case "KeyG":
-          keys.current.horn = true;
+          keysRef.current.horn = true;
           break;
       }
     };
@@ -42,25 +44,25 @@ export const useKeyboard = () => {
       switch (e.code) {
         case "KeyW":
         case "ArrowUp":
-          keys.current.forward = false;
+          keysRef.current.forward = false;
           break;
         case "KeyS":
         case "ArrowDown":
-          keys.current.backward = false;
+          keysRef.current.backward = false;
           break;
         case "KeyA":
         case "ArrowLeft":
-          keys.current.backward = false;
+          keysRef.current.left = false;
           break;
         case "KeyD":
         case "ArrowRight":
-          keys.current.forward = false;
+          keysRef.current.right = false;
           break;
         case "Space":
-          keys.current.handbrake = false;
+          keysRef.current.handbrake = false;
           break;
         case "KeyG":
-          keys.current.horn = false;
+          keysRef.current.horn = false;
           break;
       }
     };
@@ -68,14 +70,14 @@ export const useKeyboard = () => {
     // ---------- TOUCH ----------
     const updateTouch = (touches: TouchList) => {
       // reset
-      keys.current.forward = false;
-      keys.current.backward = false;
-      keys.current.left = false;
-      keys.current.right = false;
-      keys.current.handbrake = false;
+      keysRef.current.forward = false;
+      keysRef.current.backward = false;
+      keysRef.current.left = false;
+      keysRef.current.right = false;
+      keysRef.current.handbrake = false;
 
       if (touches.length >= 2) {
-        keys.current.handbrake = true;
+        keysRef.current.handbrake = true;
       }
 
       const w = window.innerWidth;
@@ -83,8 +85,8 @@ export const useKeyboard = () => {
       for (let i = 0; i < touches.length; i++) {
         const t = touches[i];
 
-        if (t.clientX > w / 2) keys.current.forward = true;
-        else keys.current.backward = true;
+        if (t.clientX > w / 2) keysRef.current.forward = true;
+        else keysRef.current.backward = true;
       }
     };
 
@@ -109,5 +111,9 @@ export const useKeyboard = () => {
     };
   }, []);
 
-  return keys;
-};
+  return (
+    <KeyboardContext.Provider value={keysRef}>
+      {children}
+    </KeyboardContext.Provider>
+  );
+}
