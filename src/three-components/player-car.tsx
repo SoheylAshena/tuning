@@ -29,7 +29,7 @@ const PlayerCar = ({
 
   // ----- Constants for car movement -----
   const ACCELERATION = 0.002;
-  const FRICTION = 0.97;
+  const FRICTION = 0.95;
   const MAX_SPEED = 1;
   const forward = new Vector3();
   const tempQuat = new Quaternion();

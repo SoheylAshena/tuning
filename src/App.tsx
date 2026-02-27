@@ -14,6 +14,8 @@ import { OrbitControls } from "@react-three/drei";
 import MaterialUpdate from "./three-components/material-update";
 import { HornButton } from "./components/car-horn";
 import GaugeLoader from "./components/gauge-loader";
+import MobileOrientationOverlay from "./components/mobile-orientation-overlay";
+import ControlsHintOverlay from "./components/controls-hint-overlay";
 
 const App = () => {
   const carRef = useRef<MyObject3D>(null!);
@@ -72,6 +74,8 @@ const App = () => {
         <HornButton />
 
         <GaugeLoader />
+        <MobileOrientationOverlay />
+        <ControlsHintOverlay />
       </div>
     </KeyboardProvider>
   );
